@@ -55,6 +55,5 @@ jobs:
 
     - name: Run integration tests
       env:
-        DATABASE_URL: jdbc:postgresql://localhost:5432/testdb
+        DATABASE_URL: jdbc:postgresql://user:password@localhost:5432/testdb
       run: mvn test -Dtest=com.example.AppIntegrationTest
-
