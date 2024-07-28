@@ -9,4 +9,3 @@ public class AppTest {
         assertEquals("Hello, World!", "Hello, World!");
     }
 }
-
