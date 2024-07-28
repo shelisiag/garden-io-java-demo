@@ -67,14 +67,16 @@ jobs:
       run: cat mvn_install.log
 
     - name: Verify DATABASE_URL
-      run: echo $DATABASE_URL
+      run: echo "DATABASE_URL $DATABASE_URL"
       env:
         DATABASE_URL: jdbc:postgresql://user:password@localhost:5432/testdb
 
     - name: Run integration tests
       env:
         DATABASE_URL: jdbc:postgresql://user:password@localhost:5432/testdb
-      run: mvn test -Dtest=com.example.AppIntegrationTest
+      run: |
+        echo "Running integration tests with DATABASE_URL: $DATABASE_URL"
+        mvn test -Dtest=com.example.AppIntegrationTest
       continue-on-error: true
 
     - name: Display Surefire Reports
