@@ -1,4 +1,4 @@
-name: CI Action
+name: CI
 
 on:
   push:
@@ -22,7 +22,11 @@ jobs:
         java-version: '11'
 
     - name: Build with Maven
-      run: mvn --batch-mode install
+      run: mvn --batch-mode install | tee mvn_install.log
+
+    - name: Display Maven Install Log
+      if: failure()
+      run: cat mvn_install.log
 
     - name: Run tests
       run: mvn test
@@ -56,7 +60,16 @@ jobs:
         java-version: '11'
 
     - name: Build with Maven
-      run: mvn --batch-mode install
+      run: mvn --batch-mode install | tee mvn_install.log
+
+    - name: Display Maven Install Log
+      if: failure()
+      run: cat mvn_install.log
+
+    - name: Verify DATABASE_URL
+      run: echo $DATABASE_URL
+      env:
+        DATABASE_URL: jdbc:postgresql://user:password@localhost:5432/testdb
 
     - name: Run integration tests
       env:
