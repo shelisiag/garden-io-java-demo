@@ -1,0 +1,31 @@
+kind: Project
+name: my-project
+
+# Define environments (e.g., dev, production)
+environments:
+  - name: dev
+
+# Define your modules (services)
+modules:
+  - name: service-a
+    type: container
+    description: Service A
+    services:
+      - name: api
+        ports:
+          - "8080:80"
+        environment:
+          - NODE_ENV=development
+
+  - name: service-b
+    type: container
+    description: Service B
+    dependsOn:
+      - service-a
+    services:
+      - name: api
+        ports:
+          - "8081:80"
+        environment:
+          - NODE_ENV=development
+
